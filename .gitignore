@@ -3,3 +3,4 @@
 __pycache__
 *.db
 *.pytest_cache
+russian_troll_tweets_english_only.csv
