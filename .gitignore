@@ -6,3 +6,5 @@ __pycache__
 russian_troll_tweets_english_only.csv
 russian_troll_tweets_eng_only_date_pub_index.csv
 top_tweets_by_at_06022019.txt
+tweets_for_top3_ats.txt
+tweets_for_top3_tags.txt
