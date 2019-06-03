@@ -8,3 +8,7 @@ russian_troll_tweets_eng_only_date_pub_index.csv
 top_tweets_by_at_06022019.txt
 tweets_for_top3_ats.txt
 tweets_for_top3_tags.txt
+combined_troll_and_control_tweets.csv
+combined_troll_and_control_tweets_en.csv
+newly_extracted_control_tweets.csv
+tweets_for_top40_ats.txt
