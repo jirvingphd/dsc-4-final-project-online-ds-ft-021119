@@ -16,18 +16,13 @@ def quick_table(tuples, col_names=None, caption =None,display_df=True):
             
     return df
 
-def compare_word_cloud(text1,label1,text2,label2,**kwargs):
+def compare_word_cloud(text1,label1,text2,label2):
     """Compares the wordclouds from 2 sets of texts"""
     from wordcloud import WordCloud
     import matplotlib.pyplot as plt
 
-    word
-    if texts_are_freqs==True:
-        wordcloud1 = WordCloud(max_font_size=80, max_words=200, background_color='white').generate_from_frequencies(text1)
-        wordcloud2 = WordCloud(max_font_size=80, max_words=200, background_color='white').generate_from_frequencies(text2)
-    if texts_are_freqs==False:
-        wordcloud1 = WordCloud(max_font_size=80, max_words=200, background_color='white').generate(' '.join(text1))
-        wordcloud2 = WordCloud(max_font_size=80, max_words=200, background_color='white').generate(' '.join(text2))
+    wordcloud1 = WordCloud(max_font_size=80, max_words=200, background_color='white').generate(' '.join(text1))
+    wordcloud2 = WordCloud(max_font_size=80, max_words=200, background_color='white').generate(' '.join(text2))
 
 
     fig,ax = plt.subplots(nrows=1,ncols=2,figsize=(20,15))
@@ -185,7 +180,7 @@ def plot_auc_roc_curve(y_test, y_test_pred):
     import matplotlib.pyplot as plt
     auc = roc_auc_score(y_test, y_test_pred[:,1])
 
-    FPr, TPr, thresh  = roc_curve(y_test, y_test_pred[:,1])
+    FPr, TPr, _  = roc_curve(y_test, y_test_pred[:,1])
     plt.plot(FPr, TPr,label=f"AUC for CatboostClassifier:\n{round(auc,2)}" )
 
     plt.plot([0, 1], [0, 1],  lw=2,linestyle='--')
@@ -285,7 +280,7 @@ def process_df_full(df_full, raw_col='content_raw', fill_content_col='content',f
     ## FIRST REMOVE THE RT HEADERS
 
     # Remove `RT @Mentions` FIRST:
-    re_RT = re.compile('RT [@]?\w*:')
+    re_RT = re.compile(r'RT [@]?\w*:')
 
     # raw_col =  'content_raw'
     check_content_col =raw_col
@@ -428,4 +423,32 @@ def run_all_checkpoint(skip=False):
         return print('OK. Continuing to run...')
     else:
         raise Exception('User requested to stop running.')
-    
+
+
+## TO CHECK FOR STRINGS IN BOTH DATASETS:
+def check_dfs_for_exp_list(df_controls, df_trolls, list_of_exp_to_check):
+    df_resample = df_trolls
+    for exp in list_of_exp_to_check:
+    #     exp = '[Pp]eggy'
+        print(f'For {exp}:')
+        print(f"\tControl tweets: {len(df_controls.loc[df_controls['content_min_clean'].str.contains(exp)])}")
+        print(f"\tTroll tweets: {len(df_resample.loc[df_resample['content_min_clean'].str.contains(exp)])}\n")
+              
+# list_of_exp_to_check = ['[Pp]eggy','[Mm]exico','nasty','impeachment','[mM]ueller']
+# check_dfs_for_exp_list(df_controls, df_resample, list_of_exp_to_check=list_of_exp_to_check)
+
+
+def get_group_texts_tokens(df_small, groupby_col='troll_tweet', group_dict={0:'controls',1:'trolls'}, column='content_stopped'):
+    from nltk import regexp_tokenize
+    pattern = "([a-zA-Z]+(?:'[a-z]+)?)"
+    text_dict = {}
+    for k,v in group_dict.items():
+        group_text_temp = df_small.groupby(groupby_col).get_group(k)[column]
+        group_text_temp = ' '.join(group_text_temp)
+        group_tokens = regexp_tokenize(group_text_temp, pattern)
+        text_dict[v] = {}
+        text_dict[v]['tokens'] = group_tokens
+        text_dict[v]['text'] =  ' '.join(group_tokens)
+            
+    print(f"{text_dict.keys()}:['tokens']|['text']")
+    return text_dict
