@@ -18,3 +18,6 @@ df_full_combined_tweets_.csv
 *.csv
 df_small_resampled_tweets_.csv
 df_ready_for_keras_06082019.csv
+df_ready_for_keras_06072019.csv
+df_ready_for_keras_06082019.csv
+df_small_resampled_tweets_.csv
