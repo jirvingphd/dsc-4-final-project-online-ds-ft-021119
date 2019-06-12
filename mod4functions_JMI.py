@@ -39,6 +39,26 @@ def compare_word_cloud(text1,label1,text2,label2):
     fig.tight_layout()
     return fig,ax
 
+def transform_image_mask_white(val):
+    """Will convert any pixel value of 0 (white) to 255 for wordcloud mask."""
+    if val==0:
+        return 255
+    else:  
+        return val
+
+def open_image_mask(filename):
+    import numpy as np
+    from PIL import Image
+    from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+
+    mask = np.array(Image.open(filename))
+    
+
+
+
+
+
+
 
 # Define get_tags_ats to accept a list of text entries and return all found tags and ats as 2 series/lists
 def get_tags_ats(text_to_search,exp_tag = r'(#\w*)',exp_at = r'(@\w*)', output='series',show_counts=False):
@@ -452,3 +472,48 @@ def get_group_texts_tokens(df_small, groupby_col='troll_tweet', group_dict={0:'c
             
     print(f"{text_dict.keys()}:['tokens']|['text']")
     return text_dict
+
+
+
+def check_df_groups_for_exp(df_full, list_of_exp_to_check, check_col='content_min_clean', groupby_col='troll_tweet', group_dict={0:'Control',1:'Troll'}):      
+    """Checks `check_col` column of input dataframe for expressions in list_of_exp_to_check and 
+    counts the # present for each group, defined by the groupby_col and groupdict. 
+    Returns a dataframe of counts."""
+    
+    list_of_results = []      
+
+    header_list= ['Term']
+    [header_list.append(x) for x in group_dict.values()]
+    list_of_results.append(header_list)
+    
+    for exp in list_of_exp_to_check:
+        curr_exp_list = [exp]
+        
+        for k,v in group_dict.items():
+            df_group = df_full.groupby(groupby_col).get_group(k)
+            curr_group_count = len(df_group.loc[df_group[check_col].str.contains(exp)])
+            curr_exp_list.append(curr_group_count)
+        
+        list_of_results.append(curr_exp_list)
+        
+    df_results = bs.list2df(list_of_results, index_col='Term')
+    return df_results
+
+
+###########################################################################
+
+def plot_fit_cloud(troll_cloud,contr_cloud,label1='Troll',label2='Control'):
+    import matplotlib.pyplot as plt
+    fig,ax = plt.subplots(nrows=1,ncols=2,figsize=(18,18))
+
+    ax[0].imshow(troll_cloud, interpolation='gaussian')
+    # ax[0].set_aspect(1.5)
+    ax[0].axis("off")
+    ax[0].set_title(label1, fontsize=40)
+
+    ax[1].imshow(contr_cloud, interpolation='bilinear',)
+    # ax[1].set_aspect(1.5)
+    ax[1].axis("off")
+    ax[1].set_title(label2, fontsize=40)
+    plt.tight_layout()
+    return fig, ax
