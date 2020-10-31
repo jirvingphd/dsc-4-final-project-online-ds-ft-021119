@@ -15,6 +15,9 @@ Please fill out:
 # Goal:
 > **To create a deep-learning Natural Language Processing neural network that can analyze the language content of a Tweet to determine if the tweet was written by an authentic user or a Russian Troll.**
 
+## Dataset Download:
+- The entire dataset is available to download from a Google Drive folder located [here](https://drive.google.com/drive/folders/1-9xFWyaZkkUxp8A1-Q4ePo7kHepyb2Hz?usp=sharing)
+
 
 ## Methods Overview:
 
