@@ -3,3 +3,6 @@
 __pycache__
 *.db
 *.pytest_cache
+final_dataset/__df_full_tweets_all_text_processed__.csv
+final_dataset/russian_troll_tweets_eng_only_date_pub_index.csv
+final_dataset/tweets_for_top40_ats.txt
