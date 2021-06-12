@@ -1,12 +1,12 @@
+<img src="images/troll-header-image.png">
 
 # Final Project Submission
 
 Please fill out:
 * Student name: James M. Irving, Ph.D.
 * Student pace: Full Time
-* Scheduled project review date/time: 
 * Instructor name: Brandon Lewis, Jeff Herman
-* Blog post URL: https://jirvingphd.github.io/building_artifical_neural_networks
+
 
 
 # Goal:
