@@ -1,8 +1,8 @@
-<img src="images/troll-header-image.png">
-
 # Final Project Submission
 
-Please fill out:
+<img src="images/troll-header-image.png">
+
+
 * Student name: James M. Irving, Ph.D.
 * Student pace: Full Time
 * Instructor name: Brandon Lewis, Jeff Herman
