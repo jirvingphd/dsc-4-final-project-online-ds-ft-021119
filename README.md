@@ -1,4 +1,6 @@
-# Final Project Submission
+<a name='title'></a>
+
+# How to Spot a (Russian) Troll
 
 <img src="images/troll-header-image.png">
 
